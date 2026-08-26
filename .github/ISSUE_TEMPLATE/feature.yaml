@@ -1,0 +1,60 @@
+name: Feature-Vorschlag
+description: Ein neues Feature oder eine Verbesserung vorschlagen
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Motivation
+      description: Welches Problem löst das Feature? Warum jetzt?
+      placeholder: Als Nutzer möchte ich …, damit …
+    validations:
+      required: true
+
+  - type: textarea
+    id: loesung
+    attributes:
+      label: Vorgeschlagene Lösung
+      description: Wie soll das Feature aussehen und sich verhalten?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternativen
+    attributes:
+      label: Betrachtete Alternativen
+      description: Welche anderen Ansätze wurden erwogen und warum verworfen?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: prioritaet
+    attributes:
+      label: Priorität
+      options:
+        - Hoch (blockiert andere Arbeit)
+        - Mittel (sollte bald kommen)
+        - Niedrig (nice to have)
+      default: 1
+    validations:
+      required: true
+
+  - type: textarea
+    id: akzeptanz
+    attributes:
+      label: Akzeptanzkriterien
+      description: Woran erkennen wir, dass das Feature fertig ist?
+      placeholder: |
+        - [ ] …
+        - [ ] …
+    validations:
+      required: false
+
+  - type: textarea
+    id: kontext
+    attributes:
+      label: Zusätzlicher Kontext
+      description: Screenshots, Links, verwandte Issues/PRs
+    validations:
+      required: false
