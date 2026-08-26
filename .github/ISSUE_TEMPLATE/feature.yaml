@@ -1,60 +1,124 @@
-name: Feature-Vorschlag
-description: Ein neues Feature oder eine Verbesserung vorschlagen
-title: "feat: "
+name: Feature
+description: Neues Feature nach der Feature-Vorlage anlegen
+title: "Feature: "
 labels: ["enhancement"]
 body:
+  - type: dropdown
+    id: groesse
+    attributes:
+      label: Geschätzte Größe
+      description: Wenn L — Feature aufteilen!
+      options:
+        - S
+        - M
+        - L
+    validations:
+      required: true
+
   - type: textarea
     id: problem
     attributes:
-      label: Problem / Motivation
-      description: Welches Problem löst das Feature? Warum jetzt?
-      placeholder: Als Nutzer möchte ich …, damit …
+      label: Problem (1–2 Sätze)
+      description: Welches konkrete Problem löst dieses Feature für mich? Wenn du das nicht in 2 Sätzen beschreiben kannst, ist das Feature noch nicht klar genug.
     validations:
       required: true
 
   - type: textarea
     id: loesung
     attributes:
-      label: Vorgeschlagene Lösung
-      description: Wie soll das Feature aussehen und sich verhalten?
+      label: Lösung (1 Absatz)
+      description: Was soll gebaut werden — in der einfachsten Form, die das Problem löst?
     validations:
       required: true
 
   - type: textarea
-    id: alternativen
+    id: user-story
     attributes:
-      label: Betrachtete Alternativen
-      description: Welche anderen Ansätze wurden erwogen und warum verworfen?
+      label: User Story
+      placeholder: Als Nutzer meines Dashboards möchte ich [Aktion], damit [Nutzen].
+    validations:
+      required: true
+
+  - type: textarea
+    id: akzeptanzkriterien
+    attributes:
+      label: Akzeptanzkriterien (max. 5)
+      description: Das Feature ist fertig, wenn … Mehr als 5 Kriterien = Feature aufteilen.
+      value: |
+        - [ ] …
+        - [ ] …
+        - [ ] …
+    validations:
+      required: true
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Explizit NICHT Teil dieses Features (Out of Scope)
+      description: "Pflichtfeld — der wichtigste Abschnitt gegen Overengineering. Typische Kandidaten: Konfigurierbarkeit, Mehrbenutzerfähigkeit, Export-Funktionen, Caching, Abstraktionsschichten „für später“, zusätzliche Ansichten/Filter."
+      value: |
+        - Kein(e) …
+        - Kein(e) …
+    validations:
+      required: true
+
+  - type: textarea
+    id: daten
+    attributes:
+      label: Daten
+      value: |
+        - **Quelle:** [API / lokale Datei / Datenbank / manuell]
+        - **Struktur:** [kurz skizzieren oder Beispiel-JSON]
+        - **Persistenz nötig?** [ja/nein — wenn ja: wo?]
+    validations:
+      required: true
+
+  - type: textarea
+    id: ui
+    attributes:
+      label: UI
+      description: Skizze/Beschreibung in 2–3 Sätzen. Kein Pixel-Perfektionismus.
+      value: |
+        - **Wo im Dashboard:** [Seite/Bereich]
+        - **Bestehende Komponenten wiederverwenden:** [welche?]
+    validations:
+      required: true
+
+  - type: textarea
+    id: technische-vorgaben
+    attributes:
+      label: Technische Vorgaben (nur wenn zwingend)
+      description: Bestehenden Stack und Konventionen nutzen (siehe CLAUDE.md).
+      value: |
+        - Keine neuen Dependencies ohne Begründung hier: [Begründung oder „keine“]
     validations:
       required: false
 
-  - type: dropdown
-    id: prioritaet
-    attributes:
-      label: Priorität
-      options:
-        - Hoch (blockiert andere Arbeit)
-        - Mittel (sollte bald kommen)
-        - Niedrig (nice to have)
-      default: 1
-    validations:
-      required: true
-
   - type: textarea
-    id: akzeptanz
+    id: prozesslogik
     attributes:
-      label: Akzeptanzkriterien
-      description: Woran erkennen wir, dass das Feature fertig ist?
+      label: Prozesslogik (optional — nur bei Zuständen/Verzweigungen)
+      description: Leer lassen, wenn das Feature keine nennenswerte Logik hat.
       placeholder: |
-        - [ ] …
-        - [ ] …
+        ```mermaid
+        flowchart TD
+            A[Start] --> B{Bedingung?}
+            B -->|ja| C[Aktion]
+            B -->|nein| D[Ende]
+        ```
     validations:
       required: false
 
   - type: textarea
-    id: kontext
+    id: claude-anweisungen
     attributes:
-      label: Zusätzlicher Kontext
-      description: Screenshots, Links, verwandte Issues/PRs
+      label: Anweisungen für Claude Code
+      description: Vorbelegt lassen — der Text bleibt Teil des Issues, damit Claude Code ihn bei der Umsetzung sieht.
+      value: |
+        1. Baue die **einfachste Lösung**, die alle Akzeptanzkriterien erfüllt.
+        2. Halte dich strikt an „Out of Scope“ — auch wenn Erweiterungen „naheliegend“ wirken.
+        3. Keine neuen Abstraktionen, Interfaces oder Config-Optionen, die nicht direkt gebraucht werden (YAGNI).
+        4. Bei Unklarheiten: nachfragen statt annehmen.
+        5. Wenn der Scope während der Umsetzung wächst: stoppen und melden.
     validations:
-      required: false
+      required: true
