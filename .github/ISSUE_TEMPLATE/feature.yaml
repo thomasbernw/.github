@@ -1,7 +1,7 @@
 name: Feature
 description: Neues Feature nach der Feature-Vorlage anlegen
 title: "Feature: "
-labels: ["enhancement"]
+labels: ["enhancement", "ready-for-dev"]
 body:
   - type: dropdown
     id: groesse
